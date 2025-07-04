@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,6 @@ import lombok.ToString;
 @NoArgsConstructor
 public class EmployeeDetails {
     @Id
-    @GeneratedValue
     private String empId;    
     private String name;  
     private LocalDate dob;
