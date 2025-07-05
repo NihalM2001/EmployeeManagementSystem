@@ -9,6 +9,7 @@ import com.retailcloud.ems.Entity.EmployeeDetails;
 import com.retailcloud.ems.Repository.DepartmentRepository;
 import com.retailcloud.ems.Repository.EmployeeRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,13 +34,10 @@ public class EmployeeService {
         return empRepo.findAll();
     }
 
-    public EmployeeDetails updateEmp(String empId, EmployeeDetails empDet)
+    public EmployeeDetails updateEmp(Integer empId, EmployeeDetails empDet)
     {
-        EmployeeDetails employee = new EmployeeDetails();
-        boolean flag = empRepo.findById(empDet.getEmpId()).isPresent();
-        if(flag)
-        {
-            // employee.setEmpId(empDet.getEmpId());
+        EmployeeDetails employee = empRepo.findById(empId).orElseThrow(()-> new EntityNotFoundException("Employee not found with the ID: " + empId));
+        
             employee.setName(empDet.getName());
             employee.setDob(empDet.getDob());
             employee.setAddress(empDet.getAddress());
@@ -48,7 +46,7 @@ public class EmployeeService {
             employee.setReportingManager(empDet.getReportingManager());
             employee.setSalary(empDet.getSalary());
             employee.setYearlyBonusPercent(empDet.getYearlyBonusPercent());
-        }
+        
         return empRepo.save(employee);
     }
 }
