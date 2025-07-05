@@ -43,7 +43,7 @@ public class DepartmentService {
         return deptRepo.save(department);
     }
      
-    public void deleteDept(String id)
+    public void deleteDept(int id)
     {
         deptRepo.deleteById(id);
     }

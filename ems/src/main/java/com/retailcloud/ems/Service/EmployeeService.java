@@ -38,7 +38,7 @@ public class EmployeeService {
             // employee.setEmpId(empDet.getEmpId());
             employee.setName(empDet.getName());
             employee.setDob(empDet.getDob());
-            employee.setDepartment(empDet.getDepartment());
+            employee.setDeptId(empDet.getDeptId());
             employee.setAddress(empDet.getAddress());
             employee.setJoiningDate(empDet.getJoiningDate());
             employee.setRole(empDet.getRole());
