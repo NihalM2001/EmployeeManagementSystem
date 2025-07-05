@@ -50,7 +50,7 @@ public class DepartmentService {
     
     public void deleteDept(Integer id)
     {
-        if(empRepo.existsByDepartment_Id(id))
+        if(empRepo.existsByDepartment_DepartmentID(id))
         {
             throw new IllegalStateException("Cannot delete department - Employyes are still present");
         }
