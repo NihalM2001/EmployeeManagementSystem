@@ -9,6 +9,7 @@ import com.retailcloud.ems.Entity.DepartmentDetails;
 import com.retailcloud.ems.Repository.DepartmentRepository;
 import com.retailcloud.ems.Repository.EmployeeRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -34,16 +35,14 @@ public class DepartmentService {
         return deptRepo.findAll();
     }
 
-    public DepartmentDetails editDept(String id, DepartmentDetails deptDet)
+    public DepartmentDetails editDept(Integer id, DepartmentDetails deptDet)
     {
-        DepartmentDetails department = new DepartmentDetails();
-        boolean flag = deptRepo.findById(deptDet.getDepartmentID()).isPresent();
-        if(flag)
-        {
-            department.setDeptName(deptDet.getDeptName());
-            department.setDeptHead(deptDet.getDeptHead());
-            department.setCreationDate(deptDet.getCreationDate());
-        }
+        DepartmentDetails department = deptRepo.findById(id).orElseThrow(()-> new EntityNotFoundException("Department not found with id: " + id));
+        
+        department.setDeptName(deptDet.getDeptName());
+        department.setDeptHead(deptDet.getDeptHead());
+        department.setCreationDate(deptDet.getCreationDate());
+        
         return deptRepo.save(department);
     }
      
