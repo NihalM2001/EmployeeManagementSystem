@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.retailcloud.ems.Entity.EmployeeDetails;
+import com.retailcloud.ems.Repository.DepartmentRepository;
 import com.retailcloud.ems.Repository.EmployeeRepository;
 
 import lombok.AllArgsConstructor;
@@ -19,6 +20,9 @@ import lombok.NoArgsConstructor;
 public class EmployeeService {
     @Autowired 
     EmployeeRepository empRepo;
+
+    @Autowired
+    DepartmentRepository deptRepo;
 
     public EmployeeDetails saveEmployee(EmployeeDetails empDet)
     {

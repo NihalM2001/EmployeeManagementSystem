@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.retailcloud.ems.Entity.DepartmentDetails;
 import com.retailcloud.ems.Repository.DepartmentRepository;
+import com.retailcloud.ems.Repository.EmployeeRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,9 @@ import lombok.ToString;
 public class DepartmentService {
     @Autowired 
     DepartmentRepository deptRepo;
+
+    @Autowired
+    EmployeeRepository empRepo; 
 
     public DepartmentDetails saveDept(DepartmentDetails deptDet)
     {
@@ -43,9 +47,15 @@ public class DepartmentService {
         return deptRepo.save(department);
     }
      
-    public void deleteDept(int id)
+    
+    public void deleteDept(Integer id)
     {
+        if(empRepo.existsByDepartment_Id(id))
+        {
+            throw new IllegalStateException("Cannot delete department - Employyes are still present");
+        }
         deptRepo.deleteById(id);
+
     }
 }
 
