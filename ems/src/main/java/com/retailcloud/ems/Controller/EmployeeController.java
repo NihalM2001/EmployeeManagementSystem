@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.retailcloud.ems.Entity.EmployeeDetails;
 import com.retailcloud.ems.Service.EmployeeService;
+import com.retailcloud.ems.dto.EmployeeDTO;
+import com.retailcloud.ems.dto.EmployeeEditDto;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,13 +31,13 @@ public class EmployeeController {
     }
 
     @GetMapping("/listEmp")
-    public List<EmployeeDetails> listEmp() {
+    public List<EmployeeDTO> listEmp() {
         return empService.listEmp();
     }
 
     @PutMapping("editEmp/{id}")
-    public EmployeeDetails editEmp(@PathVariable Integer id, @RequestBody EmployeeDetails empDet) {
-        return empService.updateEmp(id, empDet);
+    public EmployeeDTO editEmp(@PathVariable Integer id, @RequestBody EmployeeEditDto empDto) {
+        return empService.updateEmp(id, empDto);
     }
     
 }
