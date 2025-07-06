@@ -1,9 +1,15 @@
 package com.retailcloud.ems.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.retailcloud.ems.Entity.EmployeeDetails;
 import com.retailcloud.ems.Repository.DepartmentRepository;
@@ -51,5 +57,26 @@ public class EmployeeService {
             employee.setYearlyBonusPercent(empDto.yearlyBonusPercent);
         
         return EmployeeMapper.toDto(empRepo.save(employee));
+    }
+
+    public List<Map<String, Object>> listEmpNameId(boolean lookup)
+    {
+        List<Object[]> rows = empRepo.listEmpNameId();
+        List<Map<String, Object>> result = new ArrayList<>();
+        if(lookup)
+        {
+            for (Object[] row : rows) 
+            {
+                Map<String, Object> map = new HashMap<>();
+                map.put("name", row[0]);
+                map.put("empId", ((Number) row[1]).intValue());
+                result.add(map);
+            }
+        }
+        else
+        {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid value for lookup parameter");
+        }
+        return result;
     }
 }

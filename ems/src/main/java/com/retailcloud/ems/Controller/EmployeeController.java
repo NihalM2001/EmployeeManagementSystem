@@ -1,6 +1,7 @@
 package com.retailcloud.ems.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,8 @@ import com.retailcloud.ems.dto.EmployeeEditDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -38,6 +41,12 @@ public class EmployeeController {
     @PutMapping("editEmp/{id}")
     public EmployeeDTO editEmp(@PathVariable Integer id, @RequestBody EmployeeEditDto empDto) {
         return empService.updateEmp(id, empDto);
+    }
+    
+    @GetMapping("/getEmpNameId")
+    public List<Map<String, Object>> getEmpNameId(@RequestParam(name = "lookup", required = false) String lookup) {
+        boolean checkLookup = "true".equalsIgnoreCase(lookup);
+        return empService.listEmpNameId(checkLookup);
     }
     
 }
