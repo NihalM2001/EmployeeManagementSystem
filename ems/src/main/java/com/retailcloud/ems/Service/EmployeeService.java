@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import com.retailcloud.ems.Entity.EmployeeDetails;
 import com.retailcloud.ems.Repository.DepartmentRepository;
 import com.retailcloud.ems.Repository.EmployeeRepository;
+import com.retailcloud.ems.dto.EmployeeDTO;
+import com.retailcloud.ems.dto.EmployeeEditDto;
+import com.retailcloud.ems.mapper.EmployeeMapper;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -30,23 +33,23 @@ public class EmployeeService {
         return empRepo.save(empDet);
     }
 
-    public List<EmployeeDetails> listEmp(){
-        return empRepo.findAll();
+    public List<EmployeeDTO> listEmp(){
+        return empRepo.findAll().stream().map(EmployeeMapper::toDto).toList();
     }
 
-    public EmployeeDetails updateEmp(Integer empId, EmployeeDetails empDet)
+    public EmployeeDTO updateEmp(Integer empId, EmployeeEditDto empDto)
     {
         EmployeeDetails employee = empRepo.findById(empId).orElseThrow(()-> new EntityNotFoundException("Employee not found with the ID: " + empId));
         
-            employee.setName(empDet.getName());
-            employee.setDob(empDet.getDob());
-            employee.setAddress(empDet.getAddress());
-            employee.setJoiningDate(empDet.getJoiningDate());
-            employee.setRole(empDet.getRole());
-            employee.setReportingManager(empDet.getReportingManager());
-            employee.setSalary(empDet.getSalary());
-            employee.setYearlyBonusPercent(empDet.getYearlyBonusPercent());
+            employee.setName(empDto.name);
+            employee.setDob(empDto.dob);
+            employee.setAddress(empDto.address);
+            employee.setJoiningDate(empDto.joiningDate);
+            employee.setRole(empDto.role);
+            employee.setReportingManager(empDto.reportingManager);
+            employee.setSalary(empDto.salary);
+            employee.setYearlyBonusPercent(empDto.yearlyBonusPercent);
         
-        return empRepo.save(employee);
+        return EmployeeMapper.toDto(empRepo.save(employee));
     }
 }
