@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -45,4 +46,10 @@ DepartmentService depService;
         return depService.editDept(id, deptDet);
     }
     
+    @GetMapping("/listDepEmp/{id}")
+    public DepartmentDetails listDepEmp(@PathVariable Integer id, @RequestParam(name ="expand", required = false) String expand)
+    {
+        boolean expandEmployee = "employee".equalsIgnoreCase(expand);
+        return depService.getDepEmp(id, expandEmployee);
+    }
 }
