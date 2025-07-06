@@ -8,6 +8,7 @@ import com.retailcloud.ems.Service.DepartmentService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,10 +30,10 @@ DepartmentService depService;
         return depService.saveDept(saveDept);
     }
 
-    @GetMapping("/listDept")
-    public List<DepartmentDetails> listDept()
+    @GetMapping("/listDept/{pgNo}/{pageSize}")
+    public Page<DepartmentDetails> listDept(@PathVariable int pgNo,@PathVariable int pageSize)
     {
-        return depService.listDept();
+        return depService.listDept(pgNo,pageSize);
     }
     
     @DeleteMapping("/deleteDept/{id}")

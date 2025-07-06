@@ -3,6 +3,8 @@ package com.retailcloud.ems.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -31,9 +33,9 @@ public class DepartmentService {
         return deptRepo.save(deptDet);
     }
 
-    public List<DepartmentDetails> listDept()
+    public Page<DepartmentDetails> listDept(int pgNo, int pageSize)
     {
-        return deptRepo.findAll();
+        return deptRepo.findAll(PageRequest.of(pgNo, pageSize));
     }
 
     public DepartmentDetails editDept(Integer id, DepartmentDetails deptDet)
