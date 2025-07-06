@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -39,8 +41,8 @@ public class EmployeeService {
         return empRepo.save(empDet);
     }
 
-    public List<EmployeeDTO> listEmp(){
-        return empRepo.findAll().stream().map(EmployeeMapper::toDto).toList();
+    public List<EmployeeDTO> listEmp(int pgNo, int pageSize){
+        return empRepo.findAll(PageRequest.of(pgNo, pageSize)).stream().map(EmployeeMapper::toDto).toList();    //pagination works but doesn't show metadata as Page is converted to List
     }
 
     public EmployeeDTO updateEmp(Integer empId, EmployeeEditDto empDto)

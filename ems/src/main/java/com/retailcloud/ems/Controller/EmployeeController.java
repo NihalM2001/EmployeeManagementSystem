@@ -33,9 +33,9 @@ public class EmployeeController {
         return empService.saveEmployee(empDet);
     }
 
-    @GetMapping("/listEmp")
-    public List<EmployeeDTO> listEmp() {
-        return empService.listEmp();
+    @GetMapping("/listEmp/{pgNo}/{pageSize}")
+    public List<EmployeeDTO> listEmp(@PathVariable int pgNo, @PathVariable int pageSize) {
+        return empService.listEmp(pgNo, pageSize);
     }
 
     @PutMapping("editEmp/{id}")
