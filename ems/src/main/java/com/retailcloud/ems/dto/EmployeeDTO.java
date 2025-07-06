@@ -14,5 +14,8 @@ public class EmployeeDTO {
     private BigDecimal salary;
     private LocalDate joiningDate;
     private String  departmentName;
-
+    private LocalDate dob;
+    private BigDecimal yearlyBonusPercent;
+    private String reportingManager;
+    private String address;
 }
