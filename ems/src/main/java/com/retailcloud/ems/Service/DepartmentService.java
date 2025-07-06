@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.retailcloud.ems.Entity.DepartmentDetails;
 import com.retailcloud.ems.Repository.DepartmentRepository;
@@ -55,6 +56,17 @@ public class DepartmentService {
         }
         deptRepo.deleteById(id);
 
+    }
+
+    public DepartmentDetails getDepEmp(@PathVariable Integer id, boolean expandEmployees)
+    {
+        if(expandEmployees)
+        {
+            return deptRepo.findNyIdWithEmployees(id).orElseThrow(()-> new EntityNotFoundException("Department with id" + id + "not found"));
+        }
+        else{
+            throw new EntityNotFoundException("Department with id" + id + "not found");
+        }
     }
 }
 
